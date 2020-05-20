@@ -2147,6 +2147,10 @@ func (n *ppIncludeDirective) translationPhase4(c *cpp) {
 		return
 	}
 
+	if re := c.ctx.cfg.IgnoreInclude; re != nil && re.MatchString(nm) {
+		return
+	}
+
 	if c.includeLevel == maxIncludeLevel {
 		c.err(toks[0], "too many include levels")
 		return
